@@ -6,33 +6,32 @@ import javax.swing.border.*;
 
 
 public class GUI implements ActionListener,ItemListener{
-	static JCheckBox colorChkBox[] = new JCheckBox[5];
-	static JPanel[] panels = new JPanel[5];
-	public static void main(String args[])throws Exception{
-		JFrame jf = new JFrame(); 
+	JCheckBox[] colorChkBox ;
+	JPanel[] panels;
+	JFrame jf; 	
+	JButton[] colorBtn;
+	Dimension d;
+	
+	public GUI(){	
+		colorChkBox = new JCheckBox[5];
+		panels = new JPanel[5];
+		jf = new JFrame();
+		colorBtn = new JButton[5];
 		
-		JButton[] colorBtn = new JButton[5];
-		
-		int windowWidth = 900;
-		int windowHeight = 600;	
 		Toolkit tkit = jf.getToolkit();
 		Dimension wSize = tkit.getScreenSize();
 		jf.setBounds(0,0,wSize.width,wSize.height);
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf.setTitle("Frame One");
 		jf.setVisible(true);
-		jf.getContentPane().setForeground(Color.PINK);
-		
-		Dimension d = new Dimension(200,200);
+		jf.getContentPane().setForeground(Color.PINK);	
+		d = new Dimension(200,200);
 		jf.setMinimumSize(d);
-		jf.setPreferredSize(d);
+		jf.setPreferredSize(d);	
 		
-		createPanels(jf,d,panels);
-		createButton(colorBtn,panels[2]);
-		createCheckBox(colorChkBox,panels);
 	}
 	
-	public static void createPanels(JFrame jf,Dimension d,JPanel[] panels){
+	public void createPanels(){
 		
 		for(int panel=0 ; panel < 5 ; panel++){
 			panels[panel] = new JPanel();
@@ -49,13 +48,13 @@ public class GUI implements ActionListener,ItemListener{
 		
 	}
 	
-	public static void createButton(JButton[] colorBtn,JPanel panel){
+	public void createButton(){
 		for(int btn=0 ; btn<5 ; btn++)
 		{
 			colorBtn[btn] = new JButton();
-			panel.add(colorBtn[btn]);
+			panels[2].add(colorBtn[btn]);
 			colorBtn[btn].setPreferredSize(new Dimension(110, 30));
-			colorBtn[btn].addActionListener(new GUI());
+			colorBtn[btn].addActionListener(this);
 		}
 		   
 		colorBtn[0].setText("PINK");
@@ -71,12 +70,12 @@ public class GUI implements ActionListener,ItemListener{
 		   
 	}
 	
-	public static void createCheckBox(JCheckBox[] colorChkBox,JPanel[] panels){
+	public void createCheckBox(){
 		for(int box=0 ; box < 5 ; box++){
 			colorChkBox[box] = new JCheckBox();
 			panels[box].add(colorChkBox[box]);
 			colorChkBox[box].setPreferredSize(new Dimension(150, 50));
-			colorChkBox[box].addItemListener(new GUI());
+			colorChkBox[box].addItemListener(this);
 		}
 		
 		colorChkBox[0].setText("CENTER");
